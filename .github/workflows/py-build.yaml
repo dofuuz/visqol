@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Upload Python Package
+name: Build Python Package
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -15,20 +15,19 @@ permissions:
 
 jobs:
   release-build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.9"
 
       - name: Build release distributions
         run: |
           # NOTE: put your own distribution build steps here.
-          python -m pip install build
-          python -m build
+          python -m pip wheel --wheel-dir=dist .
 
       - name: Upload distributions
         uses: actions/upload-artifact@v4
