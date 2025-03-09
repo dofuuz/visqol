@@ -19,12 +19,12 @@ jobs:
         uses: pypa/cibuildwheel@v2.23
         env:
           CIBW_SKIP: "cp36-* cp37-* cp38-* pp* *-musllinux_* *_i686 *-win32"
-          CIBW_MANYLINUX_X86_64_IMAGE: manylinux2014
+          CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
           CIBW_ARCHS_LINUX: x86_64
           CIBW_BEFORE_ALL_LINUX: >
-            curl -O --retry-delay 5 --retry 5 https://copr.fedorainfracloud.org/coprs/vbatts/bazel/repo/epel-7/vbatts-bazel-epel-7.repo &&
-            cp vbatts-bazel-epel-7.repo /etc/yum.repos.d/bazel.repo &&
-            yum install -y bazel4
+            curl -O --retry-delay 5 --retry 5 https://copr.fedorainfracloud.org/coprs/vbatts/bazel/repo/epel-8/vbatts-bazel-epel-8.repo &&
+            cp vbatts-bazel-epel-8.repo /etc/yum.repos.d/bazel.repo &&
+            yum install -y bazel5
         # with:
         #   package-dir: .
         #   output-dir: wheelhouse
