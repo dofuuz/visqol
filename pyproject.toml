@@ -1,5 +1,5 @@
 [build-system]
 requires = [
-    "numpy >=2",
+    "numpy",
     "setuptools >= 40.8.0",
 ]
