@@ -22,9 +22,9 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_28
           CIBW_ARCHS_LINUX: x86_64
           CIBW_BEFORE_ALL_LINUX: >
-            curl -O --retry-delay 5 --retry 5 https://copr.fedorainfracloud.org/coprs/vbatts/bazel/repo/epel-8/vbatts-bazel-epel-8.repo &&
-            cp vbatts-bazel-epel-8.repo /etc/yum.repos.d/bazel.repo &&
-            yum install -y bazel5
+            cd "/usr/bin" && 
+            curl -fLO https://releases.bazel.build/5.3.2/release/bazel-5.3.2-linux-x86_64 && 
+            chmod +x bazel-5.3.2-linux-x86_64
         # with:
         #   package-dir: .
         #   output-dir: wheelhouse
