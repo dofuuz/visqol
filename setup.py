@@ -1,13 +1,12 @@
 import os
 from setuptools import setup, Extension
-from setuptools.command.build_ext import build_ext
+from setuptools.dist import Distribution
 
 
-class CustomBuildExt(build_ext):
-    def finalize_options(self):
-        build_ext.finalize_options(self)
-        # Ensure the wheel is platform specific
-        self.distribution.has_ext_modules = lambda: True
+class BinaryDistribution(Distribution):
+    """Distribution which always forces a binary package with platform name"""
+    def has_ext_modules(foo):
+        return True
 
 
 os.system("bazel build -c opt //:similarity_result_py_pb2")
@@ -19,7 +18,7 @@ setup(
     version="3.3.3",
     url="https://github.com/google/visqol",
     description="An objective, full-reference metric for perceived audio quality.",
-    cmdclass={"build_ext": CustomBuildExt},
+    distclass=BinaryDistribution,
     packages=["visqol", "visqol.model", "visqol.pb2"],
     package_dir={
         "visqol": "bazel-bin/python",
