@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, Extension
 
 os.system("bazel build -c opt //:similarity_result_py_pb2")
 os.system("bazel build -c opt //:visqol_config_py_pb2")
@@ -10,6 +10,9 @@ setup(
     version="3.3.3",
     url="https://github.com/google/visqol",
     description="An objective, full-reference metric for perceived audio quality.",
+    ext_modules=[
+        Extension(name="visqol", sources=[]),
+    ],
     packages=["visqol", "visqol.model", "visqol.pb2"],
     package_dir={
         "visqol": "bazel-bin/python",

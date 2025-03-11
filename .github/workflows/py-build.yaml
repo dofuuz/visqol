@@ -10,7 +10,7 @@ jobs:
       fail-fast: false
       matrix:
         # macos-13 is an intel runner, macos-14 is apple silicon
-        os: [ubuntu-20.04, windows-2019, macos-14]
+        os: [ubuntu-22.04, windows-2019, macos-14]
 
     steps:
       - uses: actions/checkout@v4
@@ -32,6 +32,7 @@ jobs:
         #   config-file: "{package}/pyproject.toml"
 
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
           path: ./wheelhouse/*.whl
@@ -46,6 +47,7 @@ jobs:
         run: pipx run build --sdist
 
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
           name: cibw-sdist
           path: dist/*.tar.gz
