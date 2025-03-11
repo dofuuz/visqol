@@ -35,16 +35,21 @@ runs:
         fi
     - shell: bash
       run: |
-        mkdir action-product
+        mkdir -p action-product/model
         cp bazel-bin/visqol action-product/
         if [[ "${{inputs.platform}}" != "windows" ]]; then
           cp bazel-bin/*_pb2.py action-product/
           cp bazel-bin/python/visqol_lib_py.so action-product/
         fi
-        cp model/lattice_tcditugenmeetpackhref_ls2_nl60_lr12_bs2048_learn.005_ep2400_train1_7_raw.tflite action-product/
-        cp model/libsvm_nu_svr_model.txt  action-product/
+        cp model/lattice_tcditugenmeetpackhref_ls2_nl60_lr12_bs2048_learn.005_ep2400_train1_7_raw.tflite action-product/model/
+        cp model/libsvm_nu_svr_model.txt  action-product/model/
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
         name: visqol-${{ inputs.platform }}-${{ inputs.architecture }}
         path: action-product
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: bazel-bin-${{ inputs.platform }}-${{ inputs.architecture }}
+        path: bazel-bin

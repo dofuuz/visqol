@@ -10,6 +10,7 @@ setup(
     version="3.3.3",
     url="https://github.com/google/visqol",
     description="An objective, full-reference metric for perceived audio quality.",
+    install_requires=["protobuf<6"],
     packages=["visqol", "visqol.model", "visqol.pb2"],
     package_dir={
         "visqol": "bazel-bin/python",
