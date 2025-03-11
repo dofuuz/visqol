@@ -1,5 +1,6 @@
 import os
 from setuptools import setup, Extension
+from setuptools.command.build_ext import build_ext
 
 
 class CustomBuildExt(build_ext):
