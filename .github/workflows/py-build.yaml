@@ -27,7 +27,7 @@ jobs:
         shell: bash  # workaround of https://github.com/tensorflow/tensorflow/issues/56420
         run: |
           export PYTHON_BIN_PATH=$(echo '${{ steps.setup-py.outputs.python-path }}' | sed 's#\\#/#g')
-          python -m pip wheel --wheel-dir=dist .
+          python -m pip wheel --no-deps --wheel-dir=dist .
 
       - name: Upload distributions
         uses: actions/upload-artifact@v4
@@ -38,5 +38,5 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: py_build-${{ matrix.os }}-py${{ matrix.py }}
-          path: py_build
+          name: bazel-bin-${{ matrix.os }}-py${{ matrix.py }}
+          path: bazel-bin/
